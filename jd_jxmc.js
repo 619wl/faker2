@@ -141,10 +141,14 @@ if ($.isNode()) {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/main
       }
     }
   }
 })()
+<<<<<<< HEAD
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
     })
@@ -160,12 +164,17 @@ if ($.isNode()) {
     }
   }
 })()
+=======
+>>>>>>> upstream/main
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
   })
   .finally(() => {
     $.done();
   })
+<<<<<<< HEAD
+>>>>>>> upstream/main
+=======
 >>>>>>> upstream/main
 
 async function pasture() {
@@ -201,6 +210,7 @@ async function pasture() {
             console.log(`初始化成功\n`)
             break
           }
+<<<<<<< HEAD
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -293,6 +303,35 @@ async function pasture() {
           }
 >>>>>>> upstream/main
         }
+=======
+        }
+      }
+      console.log('获取活动信息成功');
+      console.log(`互助码：${$.homeInfo.sharekey}`);
+      $.helpCkList.push($.cookie);
+      $.inviteCodeList.push(
+        {
+          'use': $.UserName,
+          'code': $.homeInfo.sharekey,
+          'max': false
+        }
+      );
+      await $.wait(2000)
+      await takeGetRequest('GetCardInfo');
+      if ($.GetCardInfo && $.GetCardInfo.cardinfo) {
+        let msg = '';
+        for (let vo of $.GetCardInfo.cardinfo) {
+          if (vo.currnum > 0) {
+            msg += `${vo.currnum}张${cardinfo[vo.cardtype]}卡片 `
+          }
+          $.cardType = vo.cardtype
+          for (let i = vo.currnum; i >= vo.neednum; i -= vo.neednum) {
+            console.log(`${cardinfo[vo.cardtype]}卡片已满${vo.neednum}张，去兑换...`)
+            await $.wait(5000)
+            await takeGetRequest("Combine")
+          }
+        }
+>>>>>>> upstream/main
         console.log(`\n可抽奖次数：${$.GetCardInfo.times}${msg ? `,拥有卡片：${msg}` : ''}\n`)
         if ($.GetCardInfo.times !== 0) {
           console.log(`开始抽奖`)
@@ -1042,6 +1081,7 @@ Date.prototype.Format = function (fmt) {
       d = d.replace(RegExp.$1, 1 == RegExp.$1.length ? l[k] : ("".concat(a) + l[k]).substr("".concat(l[k]).length))
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     return new Promise(async resolve => {
         $.post(options, (err, resp, data) => {
             try {
@@ -1123,6 +1163,30 @@ function getUrlData(url, name) {
 >>>>>>> upstream/main
 }
 
+=======
+  }
+  return d;
+}
+
+function getUrlData(url, name) {
+  if (typeof URL !== "undefined") {
+    let urls = new URL(url);
+    let data = urls.searchParams.get(name);
+    return data ? data : '';
+  } else {
+    const query = url.match(/\?.*/)[0].substring(1)
+    const vars = query.split('&')
+    for (let i = 0; i < vars.length; i++) {
+      const pair = vars[i].split('=')
+      if (pair[0] === name) {
+        return vars[i].substr(vars[i].indexOf('=') + 1);
+      }
+    }
+    return ''
+  }
+}
+
+>>>>>>> upstream/main
 function generateFp() {
   let e = "0123456789";
   let a = 13;
