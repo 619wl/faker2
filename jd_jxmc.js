@@ -139,43 +139,16 @@ if ($.isNode()) {
           await takeGetRequest('help');
           await $.wait(2000);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> upstream/main
       }
     }
   }
 })()
-<<<<<<< HEAD
-    .catch((e) => {
-      $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
-    })
-    .finally(() => {
-      $.done();
-    })
-=======
-    }
-})().catch((e) => {$.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')}).finally(() => {$.done();})
->>>>>>> upstream/main
-=======
-      }
-    }
-  }
-})()
-=======
->>>>>>> upstream/main
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
   })
   .finally(() => {
     $.done();
   })
-<<<<<<< HEAD
->>>>>>> upstream/main
-=======
->>>>>>> upstream/main
 
 async function pasture() {
   try {
@@ -210,81 +183,16 @@ async function pasture() {
             console.log(`初始化成功\n`)
             break
           }
-<<<<<<< HEAD
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> upstream/main
       }
       console.log('获取活动信息成功');
       console.log(`互助码：${$.homeInfo.sharekey}`);
       $.helpCkList.push($.cookie);
       $.inviteCodeList.push(
-<<<<<<< HEAD
-<<<<<<< HEAD
-          {
-            'use':$.UserName,
-            'code':$.homeInfo.sharekey,
-            'max':false
-          }
-=======
-=======
->>>>>>> upstream/main
         {
           'use': $.UserName,
           'code': $.homeInfo.sharekey,
           'max': false
-<<<<<<< HEAD
-        }
->>>>>>> upstream/main
-      );
-      await $.wait(2000)
-      await takeGetRequest('GetCardInfo');
-      if ($.GetCardInfo && $.GetCardInfo.cardinfo) {
-        let msg = '';
-        for (let vo of $.GetCardInfo.cardinfo) {
-          if (vo.currnum > 0) {
-            msg += `${vo.currnum}张${cardinfo[vo.cardtype]}卡片 `
-          }
-          $.cardType = vo.cardtype
-          for (let i = vo.currnum; i >= vo.neednum; i -= vo.neednum) {
-            console.log(`${cardinfo[vo.cardtype]}卡片已满${vo.neednum}张，去兑换...`)
-            await $.wait(5000)
-            await takeGetRequest("Combine")
-          }
-=======
-    }
-    if(JSON.stringify(signInfo) !== '{}'){
-        if(signInfo.signlist && signInfo.condneed === signInfo.condstep){
-            let signList = signInfo.signlist;
-            let signFlag = true;
-            for (let j = 0; j < signList.length; j++) {
-                if(signList[j].fortoday && !signList[j].hasdone){
-                    await $.wait(1000);
-                    console.log(`\n去签到`);
-                    await takeRequest(`jxmc`,`operservice/GetSignReward`,`&currdate=${signInfo.currdate}`,`activeid%2Cactivekey%2Cchannel%2Ccurrdate%2Cjxmc_jstoken%2Cphoneid%2Csceneid%2Ctimestamp`,true);
-                    console.log(`签到成功`);
-                    signFlag = false;
-                }
-            }
-            if(signFlag){
-                console.log(`已完成每日签到`);
-            }
-        }else if(signInfo.condneed !== signInfo.condstep){
-            console.log(`暂不满足签到条件`);
-        }else{
-            console.log(`暂无签到列表`);
-        }
-    }
-    if (homePageInfo.cow) {
-        let cowToken = ''
-        if(homePageInfo.cow.lastgettime){
-            cowToken = $.CryptoJS.MD5(homePageInfo.cow.lastgettime.toString()).toString();
-        }else{
-            cowToken = $.CryptoJS.MD5(Date.now().toString());
->>>>>>> upstream/main
-=======
         }
       );
       await $.wait(2000)
@@ -304,37 +212,7 @@ async function pasture() {
               await takeGetRequest("Combine")
             }
           }
->>>>>>> upstream/main
         }
-=======
-        }
-      }
-      console.log('获取活动信息成功');
-      console.log(`互助码：${$.homeInfo.sharekey}`);
-      $.helpCkList.push($.cookie);
-      $.inviteCodeList.push(
-        {
-          'use': $.UserName,
-          'code': $.homeInfo.sharekey,
-          'max': false
-        }
-      );
-      await $.wait(2000)
-      await takeGetRequest('GetCardInfo');
-      if ($.GetCardInfo && $.GetCardInfo.cardinfo) {
-        let msg = '';
-        for (let vo of $.GetCardInfo.cardinfo) {
-          if (vo.currnum > 0) {
-            msg += `${vo.currnum}张${cardinfo[vo.cardtype]}卡片 `
-          }
-          $.cardType = vo.cardtype
-          for (let i = vo.currnum; i >= vo.neednum; i -= vo.neednum) {
-            console.log(`${cardinfo[vo.cardtype]}卡片已满${vo.neednum}张，去兑换...`)
-            await $.wait(5000)
-            await takeGetRequest("Combine")
-          }
-        }
->>>>>>> upstream/main
         console.log(`\n可抽奖次数：${$.GetCardInfo.times}${msg ? `,拥有卡片：${msg}` : ''}\n`)
         if ($.GetCardInfo.times !== 0) {
           console.log(`开始抽奖`)
@@ -1084,90 +962,6 @@ Date.prototype.Format = function (fmt) {
       var t, a = "S+" === k ? "000" : "00";
       d = d.replace(RegExp.$1, 1 == RegExp.$1.length ? l[k] : ("".concat(a) + l[k]).substr("".concat(l[k]).length))
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    return new Promise(async resolve => {
-        $.post(options, (err, resp, data) => {
-            try {
-                if (err) {
-                    console.log(`${JSON.stringify(err)}`)
-                    console.log(`request_algo 签名参数API请求失败，请检查网路重试`)
-                } else {
-                    if (data) {
-                        data = JSON.parse(data);
-                        if (data['status'] === 200) {
-                            $.token = data.data.result.tk;
-                            let enCryptMethodJDString = data.data.result.algo;
-                            if (enCryptMethodJDString) $.enCryptMethodJD = new Function(`return ${enCryptMethodJDString}`)();
-                            console.log(`获取签名参数成功！`)
-                        } else {
-                            console.log('request_algo 签名参数API请求失败:')
-                        }
-                    } else {
-                        console.log(`京东服务器返回空数据`)
-                    }
-                }
-            } catch (e) {
-                $.logErr(e, resp)
-            } finally {
-                resolve();
-            }
-        })
-    })
-<<<<<<< HEAD
-  })
-}
-
-Date.prototype.Format = function (fmt) {
-  var e,
-      n = this, d = fmt, l = {
-        "M+": n.getMonth() + 1,
-        "d+": n.getDate(),
-        "D+": n.getDate(),
-        "h+": n.getHours(),
-        "H+": n.getHours(),
-        "m+": n.getMinutes(),
-        "s+": n.getSeconds(),
-        "w+": n.getDay(),
-        "q+": Math.floor((n.getMonth() + 3) / 3),
-        "S+": n.getMilliseconds()
-      };
-  /(y+)/i.test(d) && (d = d.replace(RegExp.$1, "".concat(n.getFullYear()).substr(4 - RegExp.$1.length)));
-  for (var k in l) {
-    if (new RegExp("(".concat(k, ")")).test(d)) {
-      var t, a = "S+" === k ? "000" : "00";
-      d = d.replace(RegExp.$1, 1 == RegExp.$1.length ? l[k] : ("".concat(a) + l[k]).substr("".concat(l[k]).length))
-    }
-=======
->>>>>>> upstream/main
-  }
-  return d;
-}
-
-function getUrlData(url, name) {
-  if (typeof URL !== "undefined") {
-    let urls = new URL(url);
-    let data = urls.searchParams.get(name);
-    return data ? data : '';
-  } else {
-    const query = url.match(/\?.*/)[0].substring(1)
-    const vars = query.split('&')
-    for (let i = 0; i < vars.length; i++) {
-      const pair = vars[i].split('=')
-      if (pair[0] === name) {
-        return vars[i].substr(vars[i].indexOf('=') + 1);
-      }
-    }
-    return ''
-  }
-<<<<<<< HEAD
-=======
->>>>>>> upstream/main
-=======
->>>>>>> upstream/main
-}
-
-=======
   }
   return d;
 }
@@ -1190,7 +984,6 @@ function getUrlData(url, name) {
   }
 }
 
->>>>>>> upstream/main
 function generateFp() {
   let e = "0123456789";
   let a = 13;
